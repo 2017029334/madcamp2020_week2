@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-        AppEventsLogger.activateApp(this);
+//        AppEventsLogger.activateApp(this);
 
         setContentView(R.layout.login);
 
@@ -94,7 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         /*
-        페이스북 로그인 */
+        페이스북 로그인
+        */
         callbackManager = CallbackManager.Factory.create();
         loginManager = LoginManager.getInstance(); //로그인 매니저 등록
 
@@ -114,9 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                 String access_Token = accessToken.getToken();
                 Log.d("json control(new token) : ", access_Token);
 
-                //해당 토큰 값을 서버로 전송
-                
-
 
                 //로그인 정보 가져오기
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
@@ -133,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
                 //parameter bundle을 추가해서 필요한 요소들 받아오기
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,first_name,last_name,email,gender");

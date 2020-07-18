@@ -11,6 +11,7 @@ import android.view.View;
 
 
 import com.example.youtube.contact.Fragment1;
+import com.example.youtube.gallery.Fragment2;
 import com.example.youtube.tab3.Fragment3;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -71,7 +72,7 @@ public class MainActivity extends FragmentActivity {
                      fragment = new Fragment1();
                     break;
                 case 2 :
-                    fragment = new com.example.youtube.Fragment2();
+                    fragment = new Fragment2();
                     break;
                 case 3 :
                     fragment = new Fragment3();
