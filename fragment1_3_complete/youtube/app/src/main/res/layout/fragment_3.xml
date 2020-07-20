@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".tab3.Fragment3"
+    android:id="@+id/fragment3">
+
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="fragment3" />-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spinner 활용"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/city"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/checkIn"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/location"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <Button
+            android:id="@+id/btn_date_pick1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DatePickerDialog" />
+        <!--android:onClick="OnClickHandler"-->
+
+        <TextView
+            android:id="@+id/textView_date1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="날짜 정보" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/checkOut"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/checkIn"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <Button
+            android:id="@+id/btn_date_pick2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DatePickerDialog" />
+        <!--android:onClick="OnClickHandler"-->
+
+        <TextView
+            android:id="@+id/textView_date2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="날짜 정보" />
+    </LinearLayout>
+
+    <Button
+        android:layout_below="@id/checkOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "search!"
+        android:id="@+id/searchHotel"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textFilterEnabled="true"
+        android:layout_below="@id/searchHotel"
+        android:id="@+id/bookList"/>
+
+</RelativeLayout>
