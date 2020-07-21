@@ -2,21 +2,18 @@ package com.example.youtube.booking;
 
 import com.google.gson.annotations.SerializedName;
 
+///////////// 호텔 자체에 대한 정보를 받아오는 객체
 public class hotelInfo {
 
     @SerializedName("_id")
     String id;
     String hotelName;
-    //String email;
     String loc;
-    //Drawable image;
 
-    hotelInfo(String id, String hotelName, String loc/*, Drawable image*/){
+    hotelInfo(String id, String hotelName, String loc){
         this.id = id;
         this.hotelName = hotelName;
-        //this.email = email;
         this.loc = loc;
-        //this.image = image;
     }
 
     public String getLoc(){

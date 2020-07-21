@@ -3,6 +3,7 @@
     package="com.example.youtube">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -30,6 +31,11 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"
+            />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -46,11 +52,12 @@
                 <data android:scheme="fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".booking.showHotel"></activity>
+        <activity android:name=".booking.showHotel"/>
         <activity android:name=".contact.CustomersClicked"/>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".gallery.Tab2Activity"></activity>
-        <activity android:name=".gallery.FullImageActivity"></activity>
+        <activity android:name=".adminActivity" />
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".gallery.Tab2Activity"/>
+        <activity android:name=".gallery.FullImageActivity"/>
 
     </application>
 

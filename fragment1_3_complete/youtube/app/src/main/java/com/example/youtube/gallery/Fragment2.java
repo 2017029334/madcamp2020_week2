@@ -76,7 +76,7 @@ public class Fragment2 extends Fragment {
     FullImageAdapter fullImageAdapter;
 
     //서버 url
-    final String url = "192.249.19.244:1080/uploads/";
+    final String url = "192.249.19.243:8980/uploads/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -222,7 +222,7 @@ public class Fragment2 extends Fragment {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
         apiService = new Retrofit.Builder()
-                .baseUrl("http://192.249.19.244:1080") //연결할 서버 주소
+                .baseUrl("http://192.249.19.243:8980") //연결할 서버 주소
                 .client(client).build().create(ApiService.class);
     }
 
@@ -389,7 +389,7 @@ public class Fragment2 extends Fragment {
     //데이터베이스의 'image' collections 정보를 Json으로 받아오기
     private List<String> getNamesFromServer() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://192.249.19.244:1080")
+                .baseUrl("http://192.249.19.243:8980")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 

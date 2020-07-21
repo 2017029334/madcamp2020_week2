@@ -13,7 +13,7 @@ import retrofit2.http.Url;
 
 public interface ApiService {
     @Multipart
-    @POST("upload")
+    @POST("/api/upload")
     Call<ResponseBody> postImage(
             @Part MultipartBody.Part image,
             @Part("upload") RequestBody name
@@ -29,7 +29,7 @@ public interface ApiService {
     @GET
     Call<ResponseBody> downloadFile(@Url String url);
 
-    @GET("/")
+    @GET("/api")
     Call<ImageReceived> getNames();
 
 }

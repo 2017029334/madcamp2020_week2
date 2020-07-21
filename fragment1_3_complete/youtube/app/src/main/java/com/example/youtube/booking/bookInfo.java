@@ -10,12 +10,16 @@ public class bookInfo {
     String id;
     String hotelName;
     String loc;
+    String lati;
+    String longi;
     ArrayList<reservList> reservList;
 
-    bookInfo(String id, String hotelName, String loc, ArrayList<reservList> reservList){
+    bookInfo(String id, String hotelName, String loc, String lati, String longi, ArrayList<reservList> reservList){
         this.id = id;
         this.hotelName = hotelName;
         this.loc = loc;
+        this.lati = lati;
+        this.longi = longi;
         this.reservList = reservList;
     }
 
@@ -29,6 +33,14 @@ public class bookInfo {
 
     public String getId(){
         return id;
+    }
+
+    public String getLati(){
+        return lati;
+    }
+
+    public String getLongi(){
+        return longi;
     }
 
     public ArrayList<com.example.youtube.booking.reservList> getReservList(){

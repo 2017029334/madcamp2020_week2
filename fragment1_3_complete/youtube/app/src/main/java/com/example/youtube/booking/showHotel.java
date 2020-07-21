@@ -2,13 +2,20 @@ package com.example.youtube.booking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.youtube.MainActivity;
 import com.example.youtube.R;
+import com.example.youtube.contact.Customer;
+import com.example.youtube.contact.CustomersClicked;
+import com.example.youtube.contact.CustomersResponse;
+import com.example.youtube.contact.ListViewAdapter_mod;
+import com.example.youtube.contact.contactRetrofitInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +53,8 @@ public class showHotel extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.hotelListView);
 
+
+        ////////////////////fragment 3에서 가져온 intent를 받는 곳//////////////////
         location = getIntent().getStringExtra("loc");
         checkInYear = getIntent().getIntExtra("ciy", 0);
         checkInMonth = getIntent().getIntExtra("cim", 0);
@@ -71,16 +80,13 @@ public class showHotel extends AppCompatActivity {
                 String name = list.get(position).getHotelName();
                 String loc = list.get(position).getLoc();
                 bookHotel(name, loc);
-//                Intent intent = new Intent(showHotel.this, CustomersClicked.class);
-//                intent.putExtra("name", list.get(position).getName());
-//                //intent.putExtra("gender", list.get(position).getGender());
-//                intent.putExtra("phone", list.get(position).getPhoneNum());
-//                startActivity(intent);
             }
         });
 
     }
 
+
+    ////////////////////////////해당 지역의 숙소 목록들을 가져오는 함수////////////////////////
     private void initiation(){
 
         // Hashmap 선언 후 key로 쓰일 이메일 값만 담아서 보냄
@@ -94,9 +100,8 @@ public class showHotel extends AppCompatActivity {
             // server로부터 응답이 돌아오면
             public void onResponse(Call<hotelList> call, Response<hotelList> response) {
                 System.out.println("hey!");
-                // 정상적으로 연락처 정보가 도착 시(200), 연락처 갱신
+                // 정상적으로 예약 정보가 도착 시(200), 해당 지역의 숙소 목록 갱신
                 if(response.code() == 200){
-                    //CustomersResponse list = response.body();
                     if (response.body() != null) {
                         list = response.body().getHotelList();
 
@@ -124,6 +129,8 @@ public class showHotel extends AppCompatActivity {
         });
     }
 
+
+    ////////////////////////////숙소를 직접 예약하는 함수////////////////////////
     private void bookHotel(String name, String loc){
         HashMap<String, String> map = new HashMap<>();
 
@@ -141,24 +148,14 @@ public class showHotel extends AppCompatActivity {
             // server로부터 응답이 돌아오면
             public void onResponse(Call<Void> call, Response<Void> response) {
                 System.out.println("hey!");
-                // 정상적으로 연락처 정보가 도착 시(200), 연락처 갱신
+                // 정상적으로 연락처 정보가 도착 시(200), 예약 성공!!
                 if(response.code() == 200){
-                    //CustomersResponse list = response.body();
-//                    if (response.body() != null) {
-//                        list = response.body().getHotelList();
-//
-//                        arraylist = new ArrayList<hotelInfo>();
-//                        arraylist.addAll(list);
-//                        adapter = new hotelViewAdapter(list, showHotel.this);
-//
-//                        listView.setAdapter(adapter);
-//                    }
                     Toast.makeText(showHotel.this, "Booking success!",
                             Toast.LENGTH_LONG).show();
                 }
-                // 비정상적인 이벤트 발생시 (404), 토스트 메시지 띄우기
+                // 비정상적인 이벤트 발생시 (404), 예약 실패...
                 else if(response.code()==404){
-                    Toast.makeText(showHotel.this, "Wrong Credentials",
+                    Toast.makeText(showHotel.this, "Booking fail...",
                             Toast.LENGTH_LONG).show();
                 }
             }

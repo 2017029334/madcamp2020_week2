@@ -26,7 +26,7 @@ public class FullImageActivity extends Activity {
         ImageView imageView = (ImageView) findViewById(R.id.full_image_view);
 
         Glide.with(this)
-                .load("http://192.249.19.244:1080/uploads/"+ imageName)
+                .load("http://192.249.19.243:8980/api/uploads/"+ imageName)
                 .into(imageView);
     }
 

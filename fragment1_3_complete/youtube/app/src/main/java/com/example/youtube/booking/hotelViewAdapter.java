@@ -11,7 +11,7 @@ import com.example.youtube.R;
 
 import java.util.List;
 
-// listView에 연결시켜주는 adapter
+// 내가 예약한 숙소정보를 fragment 3에 띄우기 위한 adapter
 public class hotelViewAdapter extends BaseAdapter {
 
     private Context context;

@@ -6,11 +6,11 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-// contact에 대한 api들을 설정하는 java interface
+// booking에 대한 api들을 설정하는 java interface
 public interface bookingRetrofitInterface {
 
     @POST("/api/booking/register")
-    Call<hotelList> executeInit(@Body HashMap<String, String> map);
+    Call<Void> executeRegiHotel(@Body HashMap<String, String> map);
 
     @POST("/api/booking/book")
     Call<Void> executeBook(@Body HashMap<String, String> map);

@@ -72,7 +72,7 @@ public class Tab2Activity extends AppCompatActivity implements View.OnClickListe
     FullImageAdapter fullImageAdapter;
 
     //서버 url
-    final String url = "192.249.19.244:1080/uploads/";
+    final String url = "192.249.19.243:8980/uploads/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

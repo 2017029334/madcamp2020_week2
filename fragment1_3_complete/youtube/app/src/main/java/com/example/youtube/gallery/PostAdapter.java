@@ -47,7 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 //        holder.postDescription.setText(image.getContent());
 
         Glide.with(holder.itemView.getContext())
-                .load("http://192.249.19.244:1080/uploads/"+ imageName)
+                .load("http://192.249.19.243:8980/api/uploads/"+ imageName)
                 .into(holder.postImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
