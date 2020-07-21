@@ -1,22 +1,22 @@
-package com.example.youtube.tab3;
+package com.example.youtube.booking;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-public class bookInfo {
+public class hotelInfo {
 
     @SerializedName("_id")
     String id;
     String hotelName;
+    //String email;
     String loc;
-    ArrayList<reservList> reservList;
+    //Drawable image;
 
-    bookInfo(String id, String hotelName, String loc, ArrayList<reservList> reservList){
+    hotelInfo(String id, String hotelName, String loc/*, Drawable image*/){
         this.id = id;
         this.hotelName = hotelName;
+        //this.email = email;
         this.loc = loc;
-        this.reservList = reservList;
+        //this.image = image;
     }
 
     public String getLoc(){
@@ -31,7 +31,4 @@ public class bookInfo {
         return id;
     }
 
-    public ArrayList<com.example.youtube.tab3.reservList> getReservList(){
-        return reservList;
-    }
 }

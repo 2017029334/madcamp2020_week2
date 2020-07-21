@@ -1,6 +1,4 @@
-package com.example.youtube.tab3;
-
-import com.example.youtube.tab3.hotelInfo;
+package com.example.youtube.booking;
 
 import java.util.ArrayList;
 

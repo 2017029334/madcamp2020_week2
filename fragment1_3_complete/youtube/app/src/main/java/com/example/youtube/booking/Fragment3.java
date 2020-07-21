@@ -1,4 +1,4 @@
-package com.example.youtube.tab3;
+package com.example.youtube.booking;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -21,11 +21,6 @@ import android.widget.Toast;
 
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
-import com.example.youtube.contact.Customer;
-import com.example.youtube.contact.CustomersClicked;
-import com.example.youtube.contact.ListViewAdapter_mod;
-import com.example.youtube.tab3.bookingRetrofitInterface;
-import com.example.youtube.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.example.youtube.tab3;
+package com.example.youtube.booking;
 
 public class bookFinalInfo {
     private String hotelName;

@@ -8,15 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.youtube.MainActivity">
 
-<!--
-    <com.facebook.login.widget.ProfilePictureView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        facebook:preset_size="small"/>
-        -->
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
@@ -29,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
-
 
     </androidx.viewpager2.widget.ViewPager2>
 

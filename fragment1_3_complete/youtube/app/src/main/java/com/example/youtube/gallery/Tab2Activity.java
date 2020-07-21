@@ -16,16 +16,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,8 +53,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class Fragment2 extends Fragment {
-
+public class Tab2Activity extends AppCompatActivity implements View.OnClickListener {
     ApiService apiService; //인터페이스
     Uri picUri;
 
@@ -79,56 +75,30 @@ public class Fragment2 extends Fragment {
     final String url = "192.249.19.244:1080/uploads/";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_2, container, false);
-//
-//        Intent intent = new Intent(getActivity().getApplicationContext(), Tab2Activity.class);
-//        startActivity(intent);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_2);
 
         //floating 버튼들
-        fabCamera = view.findViewById(R.id.fab);
-        fabUpload = view.findViewById(R.id.fab_upload);
-        fabDownload = view.findViewById(R.id.fab_download);
+        fabCamera = findViewById(R.id.fab);
+        fabUpload = findViewById(R.id.fab_upload);
+        fabDownload = findViewById(R.id.fab_download);
 
         //리사이클러뷰
-        recyclerView = (RecyclerView) view.findViewById(R.id.postList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView = (RecyclerView) findViewById(R.id.postList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator()); //사진 선택 시
-        postAdapter = new PostAdapter(getActivity().getApplicationContext());
+        postAdapter = new PostAdapter(getApplicationContext());
         recyclerView.setAdapter(postAdapter);
         fullImageAdapter = new FullImageAdapter();
 
-        ///////////////////////////각 버튼 클릭시 이벤트 처리//////////////////////////
-        fabCamera.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                startActivityForResult(getPickImageChooserIntent(), IMAGE_RESULT);
-            }
-        });
-
-        fabUpload.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if (mBitmap != null)
-                    multipartImageUpload();
-                else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        fabDownload.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                getNamesFromServer();
-            }
-        });
+        //클릭 이벤트 처리
+        fabCamera.setOnClickListener(this);
+        fabUpload.setOnClickListener(this);
+        fabDownload.setOnClickListener(this);
 
         askPermissions(); //권한 요청
         initRetrofitClient(); //retrofit 초기화
-
-        return view;
     }
 
     /////////////////////////// [권한요청] //////////////////////////////////
@@ -160,17 +130,14 @@ public class Fragment2 extends Fragment {
     private boolean hasPermission(String permission) {
         if (canMakeSmores()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //modified
-                return (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED);
+                return (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
             }
         }
         return true;
     }
     @TargetApi(Build.VERSION_CODES.M)
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
         switch (requestCode) {
 
@@ -203,30 +170,37 @@ public class Fragment2 extends Fragment {
         }
 
     }
-    private boolean canMakeSmores() {
-        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
-    }
 
-    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(getActivity())
-                .setMessage(message)
-                .setPositiveButton("OK", okListener)
-                .setNegativeButton("Cancel", null)
-                .create()
-                .show();
+
+    ///////////////////////////각 버튼 클릭시 이벤트 처리//////////////////////////
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab:
+                startActivityForResult(getPickImageChooserIntent(), IMAGE_RESULT);
+                break;
+
+            case R.id.fab_upload:
+                if (mBitmap != null)
+                    multipartImageUpload();
+                else {
+                    Toast.makeText(getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.fab_download:
+                getNamesFromServer();
+                break;
+        }
     }
 
     /////////////////////////// 서버로 사진 업로드 //////////////////////////////////
-    //retrofit 초기화
-    private void initRetrofitClient() {
-        OkHttpClient client = new OkHttpClient.Builder().build();
+        //retrofit 초기화
+        private void initRetrofitClient() {
+            OkHttpClient client = new OkHttpClient.Builder().build();
 
-        apiService = new Retrofit.Builder()
-                .baseUrl("http://192.249.19.244:1080") //연결할 서버 주소
-                .client(client).build().create(ApiService.class);
+            apiService = new Retrofit.Builder()
+                    .baseUrl("http://192.249.19.244:1080") //연결할 서버 주소
+                    .client(client).build().create(ApiService.class);
     }
-
-    ///////////////////////////카메라 버튼 클릭 이벤트//////////////////////////
 
     //이미지 선택 - 갤러리 또는 카메라
     public Intent getPickImageChooserIntent() {
@@ -234,7 +208,7 @@ public class Fragment2 extends Fragment {
         Uri outputFileUri = getCaptureImageOutputUri();
 
         List<Intent> allIntents = new ArrayList<>();
-        PackageManager packageManager = getActivity().getPackageManager(); /////modified
+        PackageManager packageManager = getPackageManager();
 
         //카메라 실행
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -278,8 +252,7 @@ public class Fragment2 extends Fragment {
     //사진 촬영한 파일을  outputFileUri로 리턴
     private Uri getCaptureImageOutputUri() {
         Uri outputFileUri = null;
-        File getImage = getActivity().getExternalFilesDir(""); ///modified
-
+        File getImage = getExternalFilesDir("");
         if (getImage != null) {
             outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
         }
@@ -287,13 +260,13 @@ public class Fragment2 extends Fragment {
     }
 
     //업로드할 이미지를 비트맵으로 imageView를 통해 화면에 뿌려줌
-    @Override //protected
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
-            ImageView imageView = getActivity().findViewById(R.id.upload_imageView);
+            ImageView imageView = findViewById(R.id.upload_imageView);
 
             if (requestCode == IMAGE_RESULT) {
 
@@ -320,30 +293,44 @@ public class Fragment2 extends Fragment {
 
     private String getPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Audio.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(contentUri, proj, null, null, null);
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
 
-    @Override //modified
-    public void onSaveInstanceState(Bundle outState) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable("pic_uri", picUri);
     }
 
-    //@Override
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState); //modified
+        super.onRestoreInstanceState(savedInstanceState);
 
         picUri = savedInstanceState.getParcelable("pic_uri");
     }
 
-    ///////////////////////////업로드 버튼 클릭 이벤트//////////////////////////
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+    private boolean canMakeSmores() {
+        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+    }
+
+    //서버에 이미지 업로드
     private void multipartImageUpload() {
         try {
-            File filesDir = getActivity().getApplicationContext().getFilesDir();
+            File filesDir = getApplicationContext().getFilesDir();
             File file = new File(filesDir, "image" + ".png");
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -364,7 +351,7 @@ public class Fragment2 extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.code() == 200) {
-                        Toast.makeText(getActivity().getApplicationContext(), "uploaded!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "uploaded!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -373,7 +360,7 @@ public class Fragment2 extends Fragment {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     textView.setText("Uploaded Failed!");
                     textView.setTextColor(Color.RED);
-                    Toast.makeText(getActivity().getApplicationContext(), "Request failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Request failed", Toast.LENGTH_SHORT).show();
                     t.printStackTrace();
                 }
             });
@@ -412,21 +399,21 @@ public class Fragment2 extends Fragment {
                     postAdapter.setItem(imageNames);
                     postAdapter.notifyDataSetChanged();
 
-                    Toast.makeText(getActivity().getApplicationContext(), "yeah!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "yeah!", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    Toast.makeText(getActivity().getApplicationContext(), "RESPONSE_ELSE", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "RESPONSE_ELSE", Toast.LENGTH_SHORT).show();
                 }
             }
 
             //에러
             @Override
             public void onFailure(Call<ImageReceived> call, Throwable t) {
-                Toast.makeText(getActivity().getApplicationContext(), "no :(", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "no :(", Toast.LENGTH_SHORT).show();
             }
         });
         return imageNames;
     }
 
-
 }
+

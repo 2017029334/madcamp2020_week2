@@ -1,39 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingTop="10dp"
-    android:id="@+id/fragment2">
+    android:fitsSystemWindows="true">
+    <!--tools:context=".MainActivity" -->
 
-    <LinearLayout
-        android:weightSum="1"
-        android:orientation="horizontal"
+    <RelativeLayout
+        android:id="@+id/content_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:id="@+id/input_string_edittext"
-            android:hint="input text here"
-            android:layout_weight="0.6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/send_button"
-            android:layout_weight="0.2"
-            android:layout_width="0dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send" />
+            android:layout_gravity="bottom|end"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
 
-        <Button
-            android:id="@+id/send_image_button"
-            android:layout_weight="0.2"
-            android:layout_width="0dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_upload"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image" />
-    </LinearLayout>
+            android:layout_below="@id/fab"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:drawable/ic_menu_upload" />
 
-</FrameLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fab_upload"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:id="@+id/upload_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

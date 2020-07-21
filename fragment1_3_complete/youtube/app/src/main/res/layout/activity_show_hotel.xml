@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tab3.showHotel">
+    tools:context=".booking.showHotel">
 
     <ListView
         android:layout_width="match_parent"

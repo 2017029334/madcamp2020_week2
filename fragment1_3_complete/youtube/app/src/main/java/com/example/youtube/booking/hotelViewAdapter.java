@@ -1,4 +1,4 @@
-package com.example.youtube.tab3;
+package com.example.youtube.booking;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,14 +12,14 @@ import com.example.youtube.R;
 import java.util.List;
 
 // listView에 연결시켜주는 adapter
-public class bookViewAdapter extends BaseAdapter {
+public class hotelViewAdapter extends BaseAdapter {
 
     private Context context;
-    private List<bookFinalInfo> list;
+    private List<hotelInfo> list;
     private LayoutInflater inflate;
     private ViewHolder viewHolder;
 
-    public bookViewAdapter(List<bookFinalInfo> list, Context context){
+    public hotelViewAdapter(List<hotelInfo> list, Context context){
         this.list = list;
         this.context = context;
         this.inflate = LayoutInflater.from(context);
@@ -43,14 +43,13 @@ public class bookViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         if(convertView==null){
-            convertView = inflate.inflate(R.layout.book_listview_layout, null);
+            convertView = inflate.inflate(R.layout.hotel_listview_layout, null);
 
             viewHolder = new ViewHolder();
 
             viewHolder.textView1 = (TextView) convertView.findViewById(R.id.hotelName);
-            viewHolder.textView2 = (TextView) convertView.findViewById(R.id.hotelLoc);
-            viewHolder.textView3 = (TextView) convertView.findViewById(R.id.checkIn);
-            viewHolder.textView4 = (TextView) convertView.findViewById(R.id.checkOut);
+            //viewHolder.textView2 = (TextView) convertView.findViewById(R.id.email);
+            viewHolder.textView3 = (TextView) convertView.findViewById(R.id.hotelLoc);
 
             convertView.setTag(viewHolder);
         }
@@ -59,9 +58,7 @@ public class bookViewAdapter extends BaseAdapter {
         }
 
         viewHolder.textView1.setText(list.get(position).getHotelName());
-        viewHolder.textView2.setText(list.get(position).getHotelLoc());
-        viewHolder.textView3.setText(list.get(position).getCheckIn());
-        viewHolder.textView4.setText(list.get(position).getCheckOut());
+        viewHolder.textView3.setText(list.get(position).getLoc());
 
         //viewHolder.textView2.setText(list.get(position).getEmail());
 
@@ -70,8 +67,7 @@ public class bookViewAdapter extends BaseAdapter {
 
     class ViewHolder{
         public TextView textView1;
-        public TextView textView2;
+        //public TextView textView2;
         public TextView textView3;
-        public TextView textView4;
     }
 }

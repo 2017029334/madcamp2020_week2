@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.example.youtube.contact.Fragment1;
 import com.example.youtube.gallery.Fragment2;
-import com.example.youtube.tab3.Fragment3;
+import com.example.youtube.booking.Fragment3;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
